@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="content.css" >
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-
+    mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <a href="/">
+      <span class="go">GO</span>
+      <span class="read">Read</span>
+    </a>
+    <p>Знание - сила!</p>
+  </div>
+
+  <ul>
+    <li sec:authorize="!isAuthenticated()"><a href="/login"><i class="fas fa-user"></i> Вход</a></li>
+    <li sec:authorize="isAuthenticated()"><a href="/cart"><i class="fas fa-shopping-bag"></i> Корзина</a></li>
+    <li sec:authorize="isAuthenticated()"><a href="/logout"><i class="fas fa-user"></i> Выйти</a></li>
+
+  </ul>
+</header>
+
+<div class="sidebar">
+  <a class="active" href="/">Главное 2022</a>
+  <a href="/foreign">Билингвы и книги на иностранных языках</a>
+  <a href="/manga">Комиксы,Манга,Артбуки</a>
+  <a href="/fiction">Художественная литература</a>
+  <a href="/!fiction">Нехудожественная литература</a>
+</div>
+
+
+<section>
+  <div class="products">
+    <div class="product-wrapper" >
+      <a href="" class="product" >
+        <img src="/pics/peter1.jpg" />
+        <h1>Пётр 1</h1>
+        <h4>Н.Павленко</h4>
+        <span class="new-price">790.00</span>
+        <p>Интерактивное историческое издание о времени Петра 1</p>
+        <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${14})}"
+           sec:authorize="isAuthenticated()" class="btn-default" >В корзину</a>
+      </a>
+    </div>
+    <div class="product-wrapper" >
+      <a href="" class="product" >
+        <img src="/pics/woman.jpg" />
+        <h1>Женщина, у которой есть план</h1>
+        <h4>М.Маск</h4>
+        <span class="new-price">899.00</span>
+        <p>Мэй Маск делится мудрыми уроками, которые она усвоила за долгую жизнь</p>
+        <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${15})}"
+           sec:authorize="isAuthenticated()" class="btn-default" >В корзину</a>
+      </a>
+    </div>
+    <div class="product-wrapper" >
+      <a href="" class="product" >
+        <img src="/pics/code.jpg" />
+        <h1>Чистый код</h1>
+        <h4>Р.Мартин</h4>
+        <span class="new-price">1999.00</span>
+        <p>Эта книга полна реальных примеров, позволяющих взглянуть на код с различных углов</p>
+        <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${16})}"
+           sec:authorize="isAuthenticated()" class="btn-default" >В корзину</a>
+      </a>
+    </div>
+    <div class="product-wrapper" >
+      <a href="" class="product" >
+        <img src="/pics/ege.jpg" />
+        <h1>ЕГЭ 2022 Обществознание</h1>
+        <h4>О.А.Котова,Т.Е.Лискова</h4>
+        <span class="new-price">390.00</span>
+        <p>Типовые экзаменационные варианты.30 вариантов</p>
+        <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${13})}"
+           sec:authorize="isAuthenticated()" class="btn-default" >В корзину</a>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer">
+    <div class="logo">
+      <a href="/">
+        <span class="go">GO</span>
+        <span class="read">Read</span>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

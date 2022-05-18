@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="content.css" >
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-
+    mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+
+<body>
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="go">GO</span>
+            <span class="read">Read</span>
+        </a>
+        <p>Знание - сила!</p>
+    </div>
+
+    <ul>
+        <li sec:authorize="!isAuthenticated()"><a href="/login"><i class="fas fa-user"></i> Вход</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/cart"><i class="fas fa-shopping-bag"></i> Корзина</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/logout"><i class="fas fa-user"></i> Выйти</a></li>
+    </ul>
+</header>
+
+<div class="sidebar">
+    <span class="total">Ваш заказ</span>
+    <hr>
+
+    <hr>
+    <span class="sum" th:inline="text">Итог: <b>[[${total}]] </b> </span>
+</div>
+
+<section>
+
+    <div class="products">
+
+        <div class="product-wrapper" th:each="product : ${products.entrySet()}">
+            <a href="" class="product">
+                <img th:src="@{${'/pics/'+ product.getKey().photo}}"/>
+                <h1 th:text="${product.getKey().name}" th:href="@{'/product/' + ${product.getKey().id}}"></h1>
+                <h4 th:text="${product.getKey().author}"></h4>
+            </a>
+
+            <div class="quantity">
+            <a th:href="@{'/shoppingCart/removeProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
+                <button type="button" class="btn btn-primary" th:text="'-'">Удалить</button>
+                <a th:inline="text" class="col-md-9">[[${product.getValue()}]]</a>
+                <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${product.getKey().id})}" class="col-md-1">
+                    <button type="button" class="btn btn-primary" th:text="'+'">Добавить</button>
+                    </a>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

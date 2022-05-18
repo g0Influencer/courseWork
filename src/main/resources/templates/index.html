@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="content.css" >
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-
+    mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <a href="/">
+      <span class="go">GO</span>
+      <span class="read">Read</span>
+    </a>
+    <p>Знание - сила!</p>
+  </div>
+
+  <ul>
+    <li sec:authorize="!isAuthenticated()"><a href="/login"><i class="fas fa-user"></i> Вход</a></li>
+    <li sec:authorize="isAuthenticated()"><a href="/cart"><i class="fas fa-shopping-bag"></i> Корзина</a></li>
+    <li sec:authorize="isAuthenticated()"><a href="/logout"><i class="fas fa-user"></i> Выйти</a></li>
+
+  </ul>
+</header>
+
+<div class="sidebar">
+  <a class="active" href="/">Главное 2022</a>
+  <a href="/foreign">Билингвы и книги на иностранных языках</a>
+  <a href="/manga">Комиксы,Манга,Артбуки</a>
+  <a href="/fiction">Художественная литература</a>
+  <a href="/!fiction">Нехудожественная литература</a>
+</div>
+
+
+<section>
+  <div class="products">
+    <div class="product-wrapper" th:each="item : ${products}">
+      <a href="" class="product">
+        <img  th:src="@{${'/pics/'+ item.photo}}" />
+        <h1 th:text="${item.name}"></h1>
+        <h4 th:text="${item.author}"></h4>
+        <span class="new-price" th:text="${item.price}">₽ </span>
+        <p th:text="${item.description}"></p>
+        <a th:href="@{'/shoppingCart/addProduct/{id}'(id=${item.id})}"
+           sec:authorize="isAuthenticated()" class="btn-default" >В корзину</a>
+      </a>
+
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer">
+    <div class="logo">
+      <a href="/">
+        <span class="go">GO</span>
+        <span class="read">Read</span>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>
